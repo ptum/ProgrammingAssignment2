@@ -9,10 +9,9 @@
 ## s <- makeCacheMatrix(h8)
 ## sh8 <- cacheSolve(s)
 ## round(sh8 %*% h8, 3) # check if correctness of the results [AA' = I]
-## .... outputs inverse from cache ...
 
-## Creates a special "Matrix" which is really a list
-## contains a function to:
+## Creates a  "Matrix" object with 4 methods to: 
+## set value, get value, set the inverse of matrix and get the inverse
 makeCacheMatrix <- function(x = matrix()) {
 	m <- NULL
 	set <- function(y) {
@@ -30,13 +29,11 @@ makeCacheMatrix <- function(x = matrix()) {
 
 
 ## Given a makeCacheMatrix object, returns the inverse
-## of the matrix
+## of the matrix if it precalculated; if not find the inverse and set the value of inverse
 ##
-## USAGE: cacheSolve(x, ...) - where 'x' is a
-## 'makeCacheMatrix' object
+## USAGE: cacheSolve(x, ...) - where 'x' is a 'makeCacheMatrix' object
 ##
-## (if it doesn't exist in cache it calculates it
-## and caches before returning)
+
 cacheSolve <- function(x, ...) {
 	## Return a matrix that is the inverse of 'x'
 	m <- x$getinv()
