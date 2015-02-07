@@ -1,8 +1,18 @@
-## Put comments here that give an overall description of what your
-## functions do
+## Caching the Inverse of a Matrix
+## uses solve() to calculate the inverse
+## of a given matrix and by taking advantage of
+## R's scoping rules is able to cache it's results.
+##
+## Complete Example:
+## hilbert <- function(n) { i <- 1:n; 1 / outer(i - 1, i, "+") }
+## h8 <- hilbert(8); h8 
+## s <- makeCacheMatrix(h8)
+## sh8 <- cacheSolve(s)
+## round(sh8 %*% h8, 3) # check if correctness of the results [AA' = I]
+## .... outputs inverse from cache ...
 
-## Write a short comment describing this function
-
+## Creates a special "Matrix" which is really a list
+## contains a function to:
 makeCacheMatrix <- function(x = matrix()) {
 	m <- NULL
 	set <- function(y) {
@@ -19,8 +29,14 @@ makeCacheMatrix <- function(x = matrix()) {
 }
 
 
-## Write a short comment describing this function
-
+## Given a makeCacheMatrix object, returns the inverse
+## of the matrix
+##
+## USAGE: cacheSolve(x, ...) - where 'x' is a
+## 'makeCacheMatrix' object
+##
+## (if it doesn't exist in cache it calculates it
+## and caches before returning)
 cacheSolve <- function(x, ...) {
 	## Return a matrix that is the inverse of 'x'
 	m <- x$getinv()
